@@ -8,18 +8,19 @@ package com.ctu.zookeeper;
  * with the specified arguments when the znode exists and kills
  * the program if the znode goes away.
  */
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+
 public class Executor
-        implements Watcher, Runnable, DataMonitor.DataMonitorListener
+        implements Runnable, DataMonitor.DataMonitorListener,Watcher
 {
     String znode;
 
@@ -65,7 +66,7 @@ public class Executor
     /***************************************************************************
      * We do process any events ourselves, we just need to forward them on.
      *
-     * @see org.apache.zookeeper.Watcher#process(org.apache.zookeeper.proto.WatcherEvent)
+     * @see Watcher#process(org.apache.zookeeper.proto.WatcherEvent)
      */
     public void process(WatchedEvent event) {
         dm.process(event);

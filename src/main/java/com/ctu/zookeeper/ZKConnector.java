@@ -1,12 +1,10 @@
 package com.ctu.zookeeper;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.ACL;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -28,7 +26,7 @@ public class ZKConnector {
     };
 
 
-    public ZooKeeper connect(String host,Watcher watcher)throws IOException,InterruptedException,KeeperException{
+    public ZooKeeper connect(String host, Watcher watcher)throws IOException,InterruptedException,KeeperException {
         zk = new ZooKeeper(host, Constant.SESSION_TIMEOUT, watcher);
         return zk;
 

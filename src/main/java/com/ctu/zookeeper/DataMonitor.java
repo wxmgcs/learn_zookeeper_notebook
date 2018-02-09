@@ -10,7 +10,7 @@ import org.apache.zookeeper.AsyncCallback.StatCallback;
 import org.apache.zookeeper.KeeperException.Code;
 import org.apache.zookeeper.data.Stat;
 
-public class DataMonitor implements Watcher, StatCallback {
+public class DataMonitor implements StatCallback {
 
     ZooKeeper zk;
 
@@ -55,7 +55,7 @@ public class DataMonitor implements Watcher, StatCallback {
 
     public void process(WatchedEvent event) {
         String path = event.getPath();
-        if (event.getType() == Event.EventType.None) {
+        if (event.getType() == Watcher.Event.EventType.None) {
             // We are are being told that the state of the
             // connection has changed
             switch (event.getState()) {

@@ -1,12 +1,13 @@
 package com.ctu.zookeeper;
 
-import org.apache.zookeeper.*;
+
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
 
 import java.io.IOException;
 import java.util.Scanner;
-
-import static com.ctu.zookeeper.Constant.CONNECTION_STRING;
-import static com.ctu.zookeeper.Constant.CONNECTION_TIMEOUT;
 
 /**
  * @author zhaojh.

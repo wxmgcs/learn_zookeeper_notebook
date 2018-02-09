@@ -1,5 +1,6 @@
 package com.ctu.zookeeper;
 
+
 import org.apache.zookeeper.*;
 
 import java.io.IOException;
@@ -14,8 +15,7 @@ public class BasicOperationForClient {
 
     public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         ZooKeeper zk = new ZooKeeper(CONNECTION_STRING, CONNECTION_TIMEOUT, new Watcher() {
-            @Override
-            public void process(WatchedEvent event) {
+            public void process(org.apache.zookeeper.WatchedEvent event) {
                String message = String.format("已经触发了[%s]事件。节点:[%s]", event.getType(), event.getWrapper().getPath());
                System.out.println(message);
             }
