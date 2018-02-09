@@ -39,9 +39,12 @@ public class TestZKConnector extends TestCase {
 
 //        assertEquals(new String(zkc.getData(path)),data);
 
+        //this is test znode31,s{'world,'anyone}
+        //crdwa = 31 转换成二进制就是11111
         for (ACL acl : zkc.getacl(path)) {
             System.out.println(acl.toString());
         }
+
 
 
     }
