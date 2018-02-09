@@ -11,11 +11,10 @@ import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 
 import static com.ctu.zookeeper.Constant.CONNECTION_STRING;
-import static com.ctu.zookeeper.Constant.SESSION_TIMEOUT;
 
 /**
  *
- * 服务发现
+ * 服务发现,监控znode的变化
  *
  * 1.*
  */
@@ -23,13 +22,14 @@ public class ServiceDiscovery {
     private ZooKeeper zooKeeper;
     private boolean monitoring;
     private CountDownLatch downLatch = new CountDownLatch(1);
+    ZKConnector zkc= null;
 
     public ServiceDiscovery() throws IOException,InterruptedException,KeeperException {
-        zooKeeper = new ZooKeeper(CONNECTION_STRING, SESSION_TIMEOUT, watcher);
+        zkc = new ZKConnector();
+        zooKeeper = zkc.connect(CONNECTION_STRING,watcher);
     }
 
     private Watcher watcher = new Watcher() {
-        @Override
         public void process(WatchedEvent event) {
             if(event.getState() == Event.KeeperState.SyncConnected && ! monitoring){
                 watchServiceZnode();
