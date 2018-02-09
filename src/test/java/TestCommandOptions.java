@@ -1,5 +1,3 @@
-import cn.diyai.zookeeper.KeeperException;
-import cn.diyai.zookeeper.ZooKeeper;
 import com.ctu.zookeeper.CommandOptions;
 import junit.framework.TestCase;
 
