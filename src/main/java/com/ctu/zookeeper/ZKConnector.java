@@ -3,6 +3,7 @@ package com.ctu.zookeeper;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.ACL;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,8 +66,39 @@ public class ZKConnector {
         return false;
     }
 
+    /**
+     * 删除znode
+     * @param path
+     * @throws InterruptedException
+     * @throws KeeperException
+     */
+    public void delete(String path)throws InterruptedException,KeeperException{
+        List<String> children = zk.getChildren(path, false);
+        for (String pathCd : children) {
+            //获取父节点下面的子节点路径
+            String newPath = "";
+            //递归调用,判断是否是根节点
+            if (path.equals("/")) {
+                newPath = "/" + pathCd;
+            } else {
+                newPath = path + "/" + pathCd;
+            }
+            delete(newPath);
+        }
+        //删除节点,并过滤zookeeper节点和 /节点
+        if (path != null && !path.trim().startsWith("/zookeeper") && !path.trim().equals("/")) {
+            zk.delete(path, -1);
+            //打印删除的节点路径
+            System.out.println("被删除的节点为：" + path);
+        }
+    }
+
     public List<String> getChilds(String path)throws InterruptedException,KeeperException{
         return zk.getChildren(path,true);
+    }
+
+    public List<ACL> getacl(String path)throws InterruptedException,KeeperException{
+        return zk.getACL(path,zk.exists(path,true));
     }
 
     public void close() throws InterruptedException{
